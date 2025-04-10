@@ -1,0 +1,375 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API de Gestión de Productos",
+        "description": "API RESTful para gestionar productos, divisas y precios adicionales de productos.",
+        "contact": {
+            "email": "tucorreo@example.com"
+        },
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/products/{id}/prices": {
+            "get": {
+                "tags": [
+                    "Precios Productos"
+                ],
+                "summary": "Obtener lista de precios adicionales de un producto",
+                "operationId": "757d54856d110c956931345834bbfb2e",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del producto",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista de precios obtenida correctamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "example": 1
+                                            },
+                                            "product_id": {
+                                                "type": "integer",
+                                                "example": 1
+                                            },
+                                            "currency_id": {
+                                                "type": "integer",
+                                                "example": 2
+                                            },
+                                            "price": {
+                                                "type": "number",
+                                                "format": "float",
+                                                "example": 22000
+                                            },
+                                            "created_at": {
+                                                "type": "string",
+                                                "format": "date-time",
+                                                "example": "2025-04-09T21:14:01.000000Z"
+                                            },
+                                            "updated_at": {
+                                                "type": "string",
+                                                "format": "date-time",
+                                                "example": "2025-04-09T21:14:01.000000Z"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Producto no encontrado"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Precios Productos"
+                ],
+                "summary": "Crear un nuevo precio adicional para un producto",
+                "operationId": "72a8a620136e78be2da763043bf2bdae",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del producto",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "currency_id",
+                                    "price"
+                                ],
+                                "properties": {
+                                    "currency_id": {
+                                        "type": "integer",
+                                        "example": 2
+                                    },
+                                    "price": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 22000
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Precio adicional creado correctamente"
+                    },
+                    "404": {
+                        "description": "Producto no encontrado"
+                    },
+                    "422": {
+                        "description": "Datos inválidos proporcionados"
+                    }
+                }
+            }
+        },
+        "/api/products": {
+            "get": {
+                "tags": [
+                    "Productos"
+                ],
+                "summary": "Obtener lista de productos",
+                "operationId": "ae5ebe0a24b2789df96322f874352c48",
+                "responses": {
+                    "200": {
+                        "description": "Lista de productos obtenida correctamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "example": 1
+                                            },
+                                            "name": {
+                                                "type": "string",
+                                                "example": "Camiseta básica"
+                                            },
+                                            "description": {
+                                                "type": "string",
+                                                "example": "Camiseta de algodón 100%"
+                                            },
+                                            "price": {
+                                                "type": "number",
+                                                "format": "float",
+                                                "example": 25.5
+                                            },
+                                            "currency_id": {
+                                                "type": "integer",
+                                                "example": 1
+                                            },
+                                            "tax_cost": {
+                                                "type": "number",
+                                                "format": "float",
+                                                "example": 2.55
+                                            },
+                                            "manufacturing_cost": {
+                                                "type": "number",
+                                                "format": "float",
+                                                "example": 10
+                                            },
+                                            "created_at": {
+                                                "type": "string",
+                                                "example": "2025-04-09T21:14:01.000000Z"
+                                            },
+                                            "updated_at": {
+                                                "type": "string",
+                                                "example": "2025-04-09T21:14:01.000000Z"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Productos"
+                ],
+                "summary": "Crear un nuevo producto",
+                "operationId": "cd35318bda7d2573339631255f39f0cc",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "description",
+                                    "price",
+                                    "currency_id",
+                                    "tax_cost",
+                                    "manufacturing_cost"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Camiseta básica"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Camiseta de algodón 100%"
+                                    },
+                                    "price": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 25.5
+                                    },
+                                    "currency_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "tax_cost": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 2.55
+                                    },
+                                    "manufacturing_cost": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 10
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Producto creado correctamente"
+                    },
+                    "422": {
+                        "description": "Datos inválidos proporcionados"
+                    }
+                }
+            }
+        },
+        "/api/products/{id}": {
+            "get": {
+                "tags": [
+                    "Productos"
+                ],
+                "summary": "Obtener un producto por ID",
+                "operationId": "0d11ccb8d4de84db7f8c26a2cc046bb8",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del producto",
+                        "required": true,
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Producto obtenido correctamente"
+                    },
+                    "404": {
+                        "description": "Producto no encontrado"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Productos"
+                ],
+                "summary": "Actualizar un producto existente",
+                "operationId": "8a0a747c59ae9fda2fddff63234cf723",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del producto a actualizar",
+                        "required": true,
+                        "example": 1
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Nueva camiseta básica"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Nueva descripción"
+                                    },
+                                    "price": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 30
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Producto actualizado correctamente"
+                    },
+                    "404": {
+                        "description": "Producto no encontrado"
+                    },
+                    "422": {
+                        "description": "Datos inválidos proporcionados"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Productos"
+                ],
+                "summary": "Eliminar un producto",
+                "operationId": "22e9b261dcb7b7badb5011b277b04a34",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del producto a eliminar",
+                        "required": true,
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Producto eliminado correctamente"
+                    },
+                    "404": {
+                        "description": "Producto no encontrado"
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Precios Productos",
+            "description": "Precios Productos"
+        },
+        {
+            "name": "Productos",
+            "description": "Productos"
+        }
+    ]
+}
